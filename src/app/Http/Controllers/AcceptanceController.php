@@ -40,7 +40,7 @@ class AcceptanceController extends Controller
             'acceptance_result' => 'required|string',
         ]);
 
-        // ✅ kiểm tra device_name thuộc đúng list theo repair_type
+        //  kiểm tra device_name thuộc đúng list theo repair_type
         $allowedDevices = $data['repair_type'] === 'internal'
             ? InternalRepair::query()->select('device_name')->distinct()->pluck('device_name')->toArray()
             : ExternalRepair::query()->select('device_name')->distinct()->pluck('device_name')->toArray();
@@ -54,7 +54,7 @@ class AcceptanceController extends Controller
         Acceptance::create([
             'repair_type' => $data['repair_type'],
             'device_name' => $data['device_name'],
-            'technician_name' => Auth::user()->name, // ✅ tự lấy theo tài khoản đăng nhập
+            'technician_name' => Auth::user()->name, // tự lấy theo tài khoản đăng nhập
             'repair_date' => $data['repair_date'],
             'acceptance_result' => $data['acceptance_result'],
             'accepted_by' => Auth::id(),
